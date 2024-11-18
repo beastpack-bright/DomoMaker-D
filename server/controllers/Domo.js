@@ -36,8 +36,7 @@ const makeDomo = async (req, res) => {
 const getDomos = async (req, res) => {
   try {
     const query = { owner: req.session.account._id };
-    const docs = await Domo.find(query).select('name age color').lean().exec();
-
+    const docs = await Domo.find(query).select('name age color favorite _id').lean().exec();
     return res.json({ domos: docs });
   } catch (err) {
     console.log(err);
@@ -45,8 +44,21 @@ const getDomos = async (req, res) => {
   }
 };
 
+const toggleFavorite = async (req, res) => {
+  try {
+    const domo = await Domo.findById(req.params.id);
+    domo.favorite = !domo.favorite;
+    await domo.save();
+    return res.json({ favorite: domo.favorite });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: 'Error toggling favorite!' });
+  }
+};
+
 module.exports = {
   makerPage,
   makeDomo,
   getDomos,
+  toggleFavorite,
 };

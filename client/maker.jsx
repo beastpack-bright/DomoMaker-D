@@ -43,6 +43,19 @@ const DomoForm = (props) => {
 const DomoList = (props) => {
     const [domos, setDomos] = useState(props.domos);
 
+    const toggleFavorite = async (id) => {
+        const response = await fetch(`/toggleFavorite/${id}`, {
+            method: 'POST',
+        });
+        if (response.ok) {
+           
+            setDomos(domos.map(domo => ({
+                ...domo,
+                favorite: domo._id === id ? !domo.favorite : false
+            })));
+        }
+    };
+        
     useEffect(() => {
         const loadDomosFromServer = async () => {
             const response = await fetch('/getDomos');
@@ -61,11 +74,20 @@ const DomoList = (props) => {
     }
     const domoNodes = domos.map(domo => {
         return (
-            <div key={domo.id} className="domo" style={{backgroundColor: domo.color}}>
+            <div 
+                key={domo._id} 
+                className={`domo ${domo.favorite ? 'favorite-domo' : ''}`}
+                style={{backgroundColor: domo.color}}
+            >
+                <button 
+                    onClick={() => toggleFavorite(domo._id)} 
+                    className="favoriteBtn"
+                >
+                    {domo.favorite ? '⭐' : '☆'}
+                </button>
                 <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
                 <h3 className="domoName">Name: {domo.name}</h3>
                 <h3 className="domoAge">Age: {domo.age}</h3>
-                <h3 className="domoColor">Color: {domo.color}</h3>
             </div>
         );
     });

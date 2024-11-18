@@ -259,6 +259,44 @@ h3.domoName {
     margin-right: 20px;
 }
 
+.favoriteBtn {
+    float: right;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 5px;
+    margin-right: 10px;
+    transition: transform 0.2s;
+}
+
+.favoriteBtn:hover {
+    transform: scale(1.2);
+}
+
+.favorite-domo {
+    border: 3px solid gold !important;
+    box-shadow: 0 0 10px gold;
+    transform: scale(1.02);
+}
+
+.favorite-domo .domoName {
+    color: gold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.favoriteBtn {
+    float: right;
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.favoriteBtn:hover {
+    transform: rotate(72deg) scale(1.2);
+}
 h3.domoAge {
     float:right;
     text-align: left;

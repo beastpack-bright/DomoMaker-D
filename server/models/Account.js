@@ -37,6 +37,10 @@ const AccountSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  customDomoImage: {
+    type: String,
+    default: '/assets/img/domoface.jpeg',
+  },
 });
 
 // Converts a doc to something we can store in redis later on.
